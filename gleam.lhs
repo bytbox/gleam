@@ -1,8 +1,77 @@
 > module Main
 >   where
 
+> import PNG
+
 > type Frequency = Double
+
+For display, we consider color in the traditional RGB values, rather than as a
+frequency.
 
 > type Color = (Double, Double, Double)
 
-> main = putStrLn "Hello, world!"
+> main = writePNG "out.png"
+>   [ replicate 10 (255,255,255)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (255,0,0)
+>   , replicate 10 (0,255,0)
+>   , replicate 10 (0,0,255)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   , replicate 10 (0,0,0)
+>   ]

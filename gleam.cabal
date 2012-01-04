@@ -48,10 +48,10 @@ Executable gleam
   Main-is: gleam.lhs
   
   -- Packages needed in order to build this package.
-  Build-depends: haskell2010
+  Build-depends: haskell2010, bytestring >= 0.9.1, zlib >= 0.5.3
   
   -- Modules not exported by this package.
-  -- Other-modules:       
+  Other-modules: PNG
   
   -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
   -- Build-tools:         
