@@ -1,7 +1,7 @@
 > module Main
 >   where
 
-> import PNG
+> import PNG (writePNG)
 
 > type Frequency = Double
 
@@ -10,68 +10,18 @@ frequency.
 
 > type Color = (Double, Double, Double)
 
-> main = writePNG "out.png"
->   [ replicate 10 (255,255,255)
->   , replicate 10 (255,0,0)
->   , replicate 10 (255,0,0)
->   , replicate 10 (255,0,0)
->   , replicate 10 (255,0,0)
->   , replicate 10 (255,0,0)
->   , replicate 10 (255,0,0)
->   , replicate 10 (0,255,0)
->   , replicate 10 (0,0,255)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   , replicate 10 (0,0,0)
->   ]
+> blank :: Int -> Int -> [[Color]]
+> blank w h = replicate w $ replicate h (0, 0, 0)
+
+The result of our raytracing is represented as a matrix of absolute colors,
+which must be normalized into something displayable.
+
+> normalize :: [[Color]] -> [[(Int, Int, Int)]]
+> normalize cs = map (map $ map3t normalizeComponent) cs
+>   where
+>     normalizeComponent c = cap 255 $ round (c * 256)
+>     cap m v = if m > v then v else m
+
+> main = writePNG "out.png" $ normalize $ blank 10 10
+
+> map3t f (a, b, c) = (f a, f b, f c)
