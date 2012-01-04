@@ -23,9 +23,6 @@ be32 x = B.pack [fromIntegral (x `shiftR` sh) | sh <- [24,16,8,0]]
 pack :: String -> B.ByteString
 pack xs = B.pack $ map (fromIntegral.fromEnum) xs
 
-unpack :: B.ByteString -> String
-unpack xs = map (toEnum.fromIntegral) (B.unpack xs)
-
 hdr, iHDR, iDAT, iEND :: B.ByteString
 hdr = pack "\137\80\78\71\13\10\26\10"
 iHDR = pack "IHDR"
@@ -73,4 +70,3 @@ crcTab = listArray (0,255) $ flip map [0..255] (\n ->
     foldl' (\c k -> if c .&. 1 == 1
                       then 0xedb88320 `xor` (c `shiftR` 1)
                       else c `shiftR` 1) n [0..7])
-
