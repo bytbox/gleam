@@ -2,6 +2,9 @@
 >   where
 
 > import PNG (writePNG)
+> import Vectors
+
+> data Ray = Ray Frequency
 
 > type Frequency = Double
 
