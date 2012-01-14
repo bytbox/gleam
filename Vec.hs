@@ -48,5 +48,8 @@ vector n = do
     fun :: String -> [Pat] -> Exp -> Dec
     fun n p e = FunD (mkName n) [(Clause p (NormalB e) [])]
 
+vec :: Int -> Q Type
+vec n = return . tupleType . replicate n =<< [t| Double |]
+
 vectors :: (Int, Int) -> Q [Dec]
 vectors (a, b) = fmap concat $ sequence $ [vector n | n <- [a..b]]

@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell, FlexibleInstances #-}
 
-module Vectors (Vector(..), Projection(..))
+module Vectors (Vector(..), Projection(..), vec)
   where
 
 import Vec

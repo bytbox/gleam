@@ -1,12 +1,20 @@
+> {-# LANGUAGE TemplateHaskell #-}
+
 > module Main
 >   where
 
 > import PNG (writePNG)
 > import Vectors
 
-> data Ray = Ray Frequency
+Computation is done from destination to source; each ray is traced from the
+destination pixel to each possible source, forking as necessary along the way
+via weighted summations.
 
-> type Frequency = Double
+> data Ray = Ray
+>   { frequencies :: [(Double, Double)]
+>   , destination :: $(vec 3)
+>   , direction :: $(vec 3)
+>   }
 
 For display, we consider color in the traditional RGB values, rather than as a
 frequency.
