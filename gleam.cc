@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 using std::string;
 
@@ -43,12 +44,10 @@ public:
 			d[i] = 0;
 	}
 
-	vector<D, T>(void *v, ...) {
-		va_list data;
-		va_start(data, v);
+	vector<D, T>(std::initializer_list<T> l) {
+		auto it = l.begin();
 		for (int i=0; i<D; i++)
-			d[i] = va_arg(data, T);
-		va_end(data);
+			d[i] = *(it++);
 	}
 
 	vector<D, T> operator+(vector<D> &v) {
@@ -117,7 +116,7 @@ public:
 		auto rs = array< vector<2> >(resx * resy);
 		for (int x=0; x<resx; x++) {
 			for (int y=0; y<resy; y++) {
-				rs[x * resy + y] = vector<2>(NULL, (double)x, (double)y);
+				rs[x * resy + y] = vector<2>{(double)x, (double)y};
 			}
 		}
 		return rs;
@@ -130,8 +129,8 @@ private:
 
 int main() {
 	camera<DIMS> cam (
-		vector<3>(NULL, 0, 0, 0),
-		vector<2>(NULL, 0, 0),
+		vector<3>{0, 0, 0},
+		vector<2>{0, 0},
 		500, 500
 	);
 	auto pxs = cam.Pixels();
