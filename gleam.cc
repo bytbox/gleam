@@ -27,9 +27,8 @@ public:
 	int Len() { return len; }
 
 	void foreach(void f(T)) {
-		for (int i=0; i<len; i++) {
+		for (int i=0; i<len; i++)
 			f(d[i]);
-		}
 	}
 private:
 	T *d;
@@ -47,7 +46,12 @@ public:
 	vector<D, T>(std::initializer_list<T> l) {
 		auto it = l.begin();
 		for (int i=0; i<D; i++)
-			d[i] = *(it++);
+			if (it != l.end()) d[i] = *(it++);
+			else d[i] = 0;
+	}
+
+	T &operator[](int p) {
+		return d[p];
 	}
 
 	vector<D, T> operator+(vector<D> &v) {
@@ -121,6 +125,17 @@ public:
 		}
 		return rs;
 	}
+
+	array<vec> Destinations() {
+		auto pxs = Pixels();
+		auto r = array<vector<D>>(pxs.Len());
+		for (int i=0; i<r.Len(); i++) {
+			auto v = pxs[i];
+			r[i] = vector<D>{v[0], v[1]};
+			r[i] += pos;
+		}
+		return r;
+	}
 private:
 	vec pos;
 	vfov fov;
@@ -129,13 +144,13 @@ private:
 
 int main() {
 	camera<DIMS> cam (
-		vector<3>{0, 0, 0},
+		vector<DIMS>{-4, -6, -8},
 		vector<2>{0, 0},
-		500, 500
+		10, 10
 	);
-	auto pxs = cam.Pixels();
-	pxs.foreach(
-		[](vector<2> v) {
+
+	cam.Destinations().foreach(
+		[](vector<DIMS> v) {
 			std::cout << v << std::endl;
 		}
 	);
