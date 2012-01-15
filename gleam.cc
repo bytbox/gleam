@@ -8,8 +8,6 @@ using std::string;
 
 #include <png.h>
 
-#define DIMS 3
-
 template <typename T>
 class array {
 public:
