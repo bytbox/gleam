@@ -99,59 +99,56 @@ std::ostream &operator<<(std::ostream &os, const vector<D, T> &v) {
 template <int D>
 class ray {
 public:
-
-private:
-	double freq;
-	vector<D> dir;
+	ray<D>() {}
+	ray<D>(vector<D> dest, vector<D> dir) : dest(dest), dir(dir) {}
 	vector<D> dest;
+	vector<D> dir;
 };
 
 template <int D>
 class camera {
-typedef vector<2> vfov;
 typedef vector<D> vec;
 public:
-	camera(vec pos, vfov fov, int resx, int resy)
-		: pos(pos), fov(fov), resx(resx), resy(resy) {
+	camera(vec pos, double fovx, double fovy, int resx, int resy)
+		: pos(pos), fovx(fovx), fovy(fovy), resx(resx), resy(resy) {
 		
 	}
 
-	array<vector<2>> Pixels() {
-		auto rs = array<vector<2>>(resx * resy);
-		for (int x=0; x<resx; x++) {
-			for (int y=0; y<resy; y++) {
-				rs[x * resy + y] = vector<2>{(double)x, (double)y};
-			}
-		}
-		return rs;
-	}
-
-	array<vec> Destinations() {
+	array<ray<D>> Rays() {
 		auto pxs = Pixels();
-		auto r = array<vector<D>>(pxs.Len());
+		auto r = array<ray<D>>(pxs.Len());
 		for (int i=0; i<r.Len(); i++) {
-			auto v = pxs[i];
-			r[i] = vector<D>{v[0], v[1]};
-			r[i] += pos;
+			auto p = vector<D>{pxs[i][0], pxs[i][1]};
+			vector<D> dir = pos;
+			r[i] = ray<D>(pos, dir);
 		}
 		return r;
 	}
+
+protected:
+	array<vector<2>> Pixels() {
+		auto rs = array<vector<2>>(resx * resy);
+		for (int x=0; x<resx; x++)
+			for (int y=0; y<resy; y++)
+				rs[x * resy + y] = vector<2>{(double)x, (double)y};
+		return rs;
+	}
+
 private:
 	vec pos;
-	vfov fov;
+	double fovx, fovy;
 	int resx, resy;
 };
 
 int main() {
 	camera<DIMS> cam (
 		vector<DIMS>{-4, -6, -8},
-		vector<2>{0, 0},
-		10, 10
+		30, 30, 10, 10
 	);
 
-	cam.Destinations().foreach(
-		[](vector<DIMS> v) {
-			std::cout << v << std::endl;
+	cam.Rays().foreach(
+		[](ray<DIMS> r) {
+			std::cout << r.dir << " " << r.dest << std::endl;
 		}
 	);
 	return 0;
