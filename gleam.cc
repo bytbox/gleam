@@ -112,8 +112,8 @@ public:
 		
 	}
 
-	array< vector<2> > Pixels() {
-		auto rs = array< vector<2> >(resx * resy);
+	array<vector<2>> Pixels() {
+		auto rs = array<vector<2>>(resx * resy);
 		for (int x=0; x<resx; x++) {
 			for (int y=0; y<resy; y++) {
 				rs[x * resy + y] = vector<2>{(double)x, (double)y};
