@@ -77,7 +77,7 @@ public:
 			d[i] *= f;
 	}
 
-	string String() {
+	string String() const {
 		std::stringstream o;
 		o << "< ";
 		for (int i=0; i<D; i++)
@@ -88,6 +88,12 @@ public:
 private:
 	T d[D];
 };
+
+template <int D, typename T=double>
+std::ostream &operator<<(std::ostream &os, const vector<D, T> &v) {
+	os << v.String();
+	return os;
+}
 
 template <int D>
 class ray {
@@ -133,7 +139,7 @@ int main() {
 	auto pxs = cam.Pixels();
 	pxs.foreach(
 		[](vector<2> v) {
-			std::cout << v.String() << std::endl;
+			std::cout << v << std::endl;
 		}
 	);
 	return 0;
