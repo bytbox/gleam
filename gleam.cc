@@ -141,7 +141,7 @@ public:
 		return r;
 	}
 
-//protected:
+protected:
 	array<vector<D-1>> Pixels() {
 		uint64_t pc = 1;
 		for (uint64_t i=0; i<res.Len(); i++)
@@ -176,15 +176,9 @@ int main() {
 		vector<DIMS-1, uint64_t>(5)
 	);
 
-	cam.Pixels().foreach(
-		[](vector<DIMS-1> p) {
-			std::cout << p << std::endl;
-		}
-	);
-
 	cam.Rays().foreach(
 		[](ray<DIMS> r) {
-//			std::cout << r.dir << " " << r.dest << std::endl;
+			std::cout << r.dir << " " << r.dest << std::endl;
 		}
 	);
 	return 0;
