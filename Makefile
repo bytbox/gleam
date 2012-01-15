@@ -1,3 +1,5 @@
+CPPFLAGS = -g -O0 -Wall -Wextra -std=c++0x
+
 all: gleam
 
 clean:
